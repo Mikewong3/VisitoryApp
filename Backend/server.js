@@ -6,6 +6,7 @@ const Client = require("@googlemaps/google-maps-services-js").Client;
 
 const client = new Client({});
 
+//REMEBER TO HIDE MY KEY OR PEOPLE STEAL BAD
 app.use(cors());
 app.get("/", function(req, res) {
   client

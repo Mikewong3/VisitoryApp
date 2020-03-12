@@ -1,0 +1,10 @@
+<div>
+  <label>
+    Place:
+    <input [(ngModel)]="location" placeholder="name" id="searchBar" />
+    <button (click)="testClick(location)">Search</button>
+  </label>
+</div>
+<ul>
+  <li *ngFor="let item of locationId">{{ item.place_id }}</li>
+</ul>

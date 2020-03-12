@@ -1,7 +1,7 @@
 var express = require("express");
 var app = express();
 var cors = require("cors");
-
+let api = require("./config");
 const Client = require("@googlemaps/google-maps-services-js").Client;
 
 const client = new Client({});
@@ -12,7 +12,7 @@ app.get("/", function(req, res) {
   client
     .findPlaceFromText({
       params: {
-        key: "AIzaSyDB0vvrNozsGFZD6lD97DTD3oKhtHTZRxk",
+        key: api.googleApiKey.apiKey,
         input: "Morton's The Steakhouse",
         inputtype: "textquery"
       }

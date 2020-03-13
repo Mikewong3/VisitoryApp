@@ -8,6 +8,7 @@ const client = new Client({});
 
 //REMEBER TO HIDE MY KEY OR PEOPLE STEAL BAD
 app.use(cors());
+
 app.get("/locations/:name", function(req, res) {
   console.log(req.params.name);
   client
@@ -24,6 +25,21 @@ app.get("/locations/:name", function(req, res) {
     })
     .catch(e => {
       console.log(e);
+    });
+});
+
+app.get("/getDetails", function(req, res) {
+  client
+    .placeDetails({
+      params: {
+        key: api.googleApiKey.apiKey,
+        place_id: "ChIJlZHuWJuRwokRGCLXHgxapbI",
+        fields: ["formatted_address", "place_id"]
+      }
+    })
+    .then(resp => {
+      console.log(resp);
+      res.send(resp.data);
     });
 });
 app.listen(3000);

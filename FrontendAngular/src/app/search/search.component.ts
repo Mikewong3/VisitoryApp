@@ -11,8 +11,8 @@ export class SearchComponent implements OnInit {
   locationId: any = [];
 
   constructor(private placeIdSerivce: PlaceIdService) {}
-  getPID() {
-    this.placeIdSerivce.getPlaceId().subscribe(data => {
+  getPID(location) {
+    this.placeIdSerivce.getPlaceId(location).subscribe(data => {
       for (const d of data as any) {
         this.locationId.push({
           place_id: d.place_id
@@ -26,7 +26,5 @@ export class SearchComponent implements OnInit {
     console.log(location);
   }
 
-  ngOnInit() {
-    this.getPID();
-  }
+  ngOnInit() {}
 }

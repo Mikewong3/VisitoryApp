@@ -8,12 +8,13 @@ const client = new Client({});
 
 //REMEBER TO HIDE MY KEY OR PEOPLE STEAL BAD
 app.use(cors());
-app.get("/", function(req, res) {
+app.get("/locations/:name", function(req, res) {
+  console.log(req.params.name);
   client
     .findPlaceFromText({
       params: {
         key: api.googleApiKey.apiKey,
-        input: "Morton's The Steakhouse",
+        input: req.params.name,
         inputtype: "textquery"
       }
     })
@@ -25,9 +26,4 @@ app.get("/", function(req, res) {
       console.log(e);
     });
 });
-// let testData = [{ name: "Mike" }];
-// app.get("/", function(req, res) {
-//   res.send(testData);
-//   console.log("Get called");
-// });
 app.listen(3000);

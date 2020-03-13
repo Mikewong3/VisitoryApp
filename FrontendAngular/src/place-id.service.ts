@@ -7,8 +7,8 @@ import { from } from "rxjs";
 export class PlaceIdService {
   constructor(private http: HttpClient) {}
 
-  configUrl = "http://localhost:3000";
-  getPlaceId() {
-    return this.http.get(this.configUrl);
+  defaultURL = "http://localhost:3000/locations/";
+  getPlaceId(location) {
+    return this.http.get(this.defaultURL.concat(location));
   }
 }

@@ -31,6 +31,11 @@ interface Location {
 })
 export class GoogleMapComponent implements OnInit {
   geocoder: any;
+
+  testData = [
+    { lat: 34.155834, lng: -119.202789 },
+    { lat: 31.442778, lng: -100.450279 }
+  ];
   public location: Location = {
     lat: 51.678418,
     lng: 7.809007,
@@ -57,7 +62,5 @@ export class GoogleMapComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    this.location.marker.draggable = true;
-  }
+  ngOnInit() {}
 }

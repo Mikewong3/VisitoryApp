@@ -13,4 +13,13 @@
     [markerDraggable]="location.marker.draggable"
     (dragEnd)="markerDragEnd($event)"
   ></agm-marker>
+
+  <agm-marker
+    *ngFor="let test of testData"
+    [(latitude)]="test.lat"
+    [(longitude)]="test.lng"
+    [agmFitBounds]="true"
+    [iconUrl]="location.icon"
+  >
+  </agm-marker>
 </agm-map>

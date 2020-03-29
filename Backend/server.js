@@ -33,13 +33,30 @@ app.get("/getDetails", function(req, res) {
     .placeDetails({
       params: {
         key: api.googleApiKey.apiKey,
-        place_id: "ChIJlZHuWJuRwokRGCLXHgxapbI",
+        place_id: "ChIJDZQ0SReRwokR7Qev4OIC_vg",
         fields: ["formatted_address", "place_id"]
       }
     })
     .then(resp => {
       console.log(resp);
       res.send(resp.data);
+    });
+});
+
+app.get("/autocomplete/:name", function(req, res) {
+  client
+    .placeAutocomplete({
+      params: {
+        key: api.googleApiKey.apiKey,
+        input: req.params.name
+      }
+    })
+    .then(resp => {
+      console.log(resp.data.predictions);
+      res.send("It worked");
+    })
+    .catch(error => {
+      console.log(error);
     });
 });
 app.listen(3000);

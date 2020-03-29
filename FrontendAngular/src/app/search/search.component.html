@@ -2,9 +2,16 @@
   <label>
     Place:
     <input [(ngModel)]="location" placeholder="name" id="searchBar" />
-    <button (click)="getPID(location)">Search</button>
+    <button (click)="getRecPlaces(location)">Search</button>
   </label>
 </div>
-<ul>
+<!-- <ul>
   <li *ngFor="let item of locationId">{{ item.place_id }}</li>
+</ul>
+ -->
+
+<ul>
+  <li *ngFor="let rec of recLocations">
+    {{ rec.description }} {{ rec.place_id }}
+  </li>
 </ul>

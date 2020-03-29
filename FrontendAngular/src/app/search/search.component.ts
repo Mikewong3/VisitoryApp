@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { PlaceIdService } from "../../place-id.service";
-
+import { RecPlacesService } from "../rec-places.service";
 @Component({
   selector: "app-search",
   templateUrl: "./search.component.html",
@@ -9,8 +9,11 @@ import { PlaceIdService } from "../../place-id.service";
 export class SearchComponent implements OnInit {
   location: String;
   locationId: any = [];
-
-  constructor(private placeIdSerivce: PlaceIdService) {}
+  recLocations: any = [];
+  constructor(
+    private placeIdSerivce: PlaceIdService,
+    private recPlaceService: RecPlacesService
+  ) {}
   getPID(location) {
     this.placeIdSerivce.getPlaceId(location).subscribe(data => {
       for (const d of data as any) {
@@ -19,6 +22,16 @@ export class SearchComponent implements OnInit {
         });
       }
       console.log(this.locationId);
+    });
+  }
+  getRecPlaces(location) {
+    this.recPlaceService.getRec(location).subscribe(data => {
+      for (const d of data as any) {
+        this.recLocations.push({
+          description: d.description,
+          place_id: d.place_id
+        });
+      }
     });
   }
   testClick(location) {

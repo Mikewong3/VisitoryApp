@@ -53,7 +53,7 @@ app.get("/autocomplete/:name", function(req, res) {
     })
     .then(resp => {
       console.log(resp.data.predictions);
-      res.send("It worked");
+      res.send(resp.data.predictions);
     })
     .catch(error => {
       console.log(error);

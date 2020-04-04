@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { PlaceIdService } from "../../place-id.service";
+import { PlaceIdService } from "../place-id.service";
 import { RecPlacesService } from "../rec-places.service";
+import { location } from "../../models/locations";
 @Component({
   selector: "app-search",
   templateUrl: "./search.component.html",
@@ -29,7 +30,8 @@ export class SearchComponent implements OnInit {
       for (const d of data as any) {
         this.recLocations.push({
           description: d.description,
-          place_id: d.place_id
+          place_id: d.place_id,
+          types: d.types
         });
       }
     });
@@ -38,6 +40,26 @@ export class SearchComponent implements OnInit {
     console.log("Click works");
     console.log(location);
   }
-
+  saveLocation(recLocation) {
+    let saveLoc = new location(
+      recLocation.description,
+      recLocation.place_id,
+      recLocation.types
+    );
+    let resLoc = this.placeIdSerivce
+      .saveRecLocation(saveLoc)
+      .subscribe(data => {
+        console.log(data);
+      });
+  }
+  // saveLocation2() {
+  //   let testArr = ["a", "b"];
+  //   let testData = new location("hello", "test", testArr);
+  //   let resLoc = this.placeIdSerivce
+  //     .saveRecLocation(testData)
+  //     .subscribe(data => {
+  //       console.log(data);
+  //     });
+  // }
   ngOnInit() {}
 }

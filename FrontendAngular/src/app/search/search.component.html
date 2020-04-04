@@ -13,5 +13,8 @@
 <ul>
   <li *ngFor="let rec of recLocations">
     {{ rec.description }} {{ rec.place_id }}
+    <button (click)="saveLocation(rec)">Save</button>
   </li>
 </ul>
+
+<button (click)="saveLocation()">TestPost</button>

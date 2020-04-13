@@ -12,11 +12,15 @@ export class PlaceIdService {
 
   getPlaceIdURL = "http://localhost:3000/locations/";
   saveRecLocURL = "http://localhost:3000/saveLocation";
+  savedLocURL = "http://localhost:3000/getLocations";
 
   getPlaceId(location) {
     return this.http.get(this.getPlaceIdURL.concat(location));
   }
   saveRecLocation(location: location): Observable<location> {
     return this.http.post<location>(this.saveRecLocURL, location);
+  }
+  getSavedLocations() {
+    return this.http.get(this.savedLocURL);
   }
 }

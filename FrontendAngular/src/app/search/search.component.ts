@@ -52,14 +52,6 @@ export class SearchComponent implements OnInit {
         console.log(data);
       });
   }
-  // saveLocation2() {
-  //   let testArr = ["a", "b"];
-  //   let testData = new location("hello", "test", testArr);
-  //   let resLoc = this.placeIdSerivce
-  //     .saveRecLocation(testData)
-  //     .subscribe(data => {
-  //       console.log(data);
-  //     });
-  // }
+
   ngOnInit() {}
 }

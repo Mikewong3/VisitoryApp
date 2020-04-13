@@ -1,28 +1,7 @@
 import { Component, Input, ViewChild, NgZone, OnInit } from "@angular/core";
 import { MapsAPILoader, AgmMap } from "@agm/core";
 import { GoogleMapsAPIWrapper } from "@agm/core/services";
-
-declare var google: any;
-
-interface Marker {
-  lat: number;
-  lng: number;
-  label?: string;
-  draggable: boolean;
-}
-
-interface Location {
-  lat: number;
-  lng: number;
-  viewport?: Object;
-  zoom: number;
-  address_level_1?: string;
-  address_level_2?: string;
-  address_country?: string;
-  address_zip?: string;
-  address_state?: string;
-  marker?: Marker;
-}
+import { PlaceIdService } from "../place-id.service";
 
 @Component({
   selector: "app-google-map",
@@ -30,37 +9,30 @@ interface Location {
   styles: ["agm-map { height: 300px; /* height is required */ }"]
 })
 export class GoogleMapComponent implements OnInit {
-  geocoder: any;
-
+  defaultLatitude = 40.73061;
+  defaultLongitude = -73.935242;
+  mapType = "roadmap";
   testData = [
     { lat: 34.155834, lng: -119.202789 },
-    { lat: 31.442778, lng: -100.450279 }
+    { lat: 31.442778, lng: -100.450279 },
+    { lat: 41, lng: -74 }
   ];
-  public location: Location = {
-    lat: 51.678418,
-    lng: 7.809007,
-    marker: {
-      lat: 51.678418,
-      lng: 7.809007,
-      draggable: true
-    },
-    zoom: 5
-  };
-
+  savedLocations: any = [];
   @ViewChild(AgmMap, { static: true }) map: AgmMap;
 
-  constructor(
-    public mapsApiLoader: MapsAPILoader,
-    private zone: NgZone,
-    private wrapper: GoogleMapsAPIWrapper
-  ) {
-    this.mapsApiLoader = mapsApiLoader;
-    this.zone = zone;
-    this.wrapper = wrapper;
-    this.mapsApiLoader.load().then(() => {
-      this.geocoder = new google.maps.Geocoder();
+  constructor(private placeIdSerivce: PlaceIdService) {}
+  getSavedLocation() {
+    this.placeIdSerivce.getSavedLocations().subscribe(data => {
+      for (const d of data as any) {
+        this.savedLocations.push({
+          lat: d.geoCordinates[0].lat,
+          lng: d.geoCordinates[0].lng
+        });
+      }
     });
+    console.log(this.savedLocations);
   }
-
-  ngOnInit() {}
+  ngOnInit() {
+    this.getSavedLocation();
+  }
 }

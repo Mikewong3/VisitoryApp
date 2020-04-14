@@ -5,14 +5,10 @@
     <button (click)="getRecPlaces(location)">Search</button>
   </label>
 </div>
-<!-- <ul>
-  <li *ngFor="let item of locationId">{{ item.place_id }}</li>
-</ul>
- -->
 
 <ul>
   <li *ngFor="let rec of recLocations">
-    {{ rec.description }} {{ rec.place_id }}
+    {{ rec.name }} "///" {{ rec.address }}
     <button (click)="saveLocation(rec)">Save</button>
   </li>
 </ul>

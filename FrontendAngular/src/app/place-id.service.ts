@@ -13,7 +13,8 @@ export class PlaceIdService {
   getPlaceIdURL = "http://localhost:3000/locations/";
   saveRecLocURL = "http://localhost:3000/saveLocation";
   savedLocURL = "http://localhost:3000/getLocations";
-
+  recLocationURL = "http://localhost:3000/autocomplete/";
+  getDetailsURL = "http://localhost:3000/getDetails/";
   getPlaceId(location) {
     return this.http.get(this.getPlaceIdURL.concat(location));
   }
@@ -22,5 +23,32 @@ export class PlaceIdService {
   }
   getSavedLocations() {
     return this.http.get(this.savedLocURL);
+  }
+  //Ignore the error for the details.attr / it gives the info correctly
+  getRec(location) {
+    let result: any = [];
+    this.http.get(this.recLocationURL.concat(location)).subscribe(data => {
+      for (const d of data as any) {
+        this.getPlaceDetails(d.place_id).subscribe(details => {
+          result.push({
+            name: d.terms[0].value,
+            address: details.formatted_address,
+            phone: details.formatted_phone_number,
+            lat: details.geometry.location.lat,
+            lng: details.geometry.location.lng,
+            place_id: details.place_id,
+            rating: details.rating,
+            types: details.types,
+            website: details.website
+          });
+        });
+      }
+    });
+    console.log(result);
+
+    return result;
+  }
+  getPlaceDetails(locationId) {
+    return this.http.get(this.getDetailsURL.concat(locationId));
   }
 }

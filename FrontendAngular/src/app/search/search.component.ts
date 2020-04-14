@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { PlaceIdService } from "../place-id.service";
-import { RecPlacesService } from "../rec-places.service";
 import { location } from "../../models/locations";
 @Component({
   selector: "app-search",
@@ -10,11 +9,9 @@ import { location } from "../../models/locations";
 export class SearchComponent implements OnInit {
   location: String;
   locationId: any = [];
+  //Model of recLocations: {name,address,phone,lat,lng,place_id,rating,types,website}
   recLocations: any = [];
-  constructor(
-    private placeIdSerivce: PlaceIdService,
-    private recPlaceService: RecPlacesService
-  ) {}
+  constructor(private placeIdSerivce: PlaceIdService) {}
   getPID(location) {
     this.placeIdSerivce.getPlaceId(location).subscribe(data => {
       for (const d of data as any) {
@@ -25,16 +22,9 @@ export class SearchComponent implements OnInit {
       console.log(this.locationId);
     });
   }
+
   getRecPlaces(location) {
-    this.recPlaceService.getRec(location).subscribe(data => {
-      for (const d of data as any) {
-        this.recLocations.push({
-          description: d.description,
-          place_id: d.place_id,
-          types: d.types
-        });
-      }
-    });
+    this.recLocations = this.placeIdSerivce.getRec(location);
   }
   testClick(location) {
     console.log("Click works");
@@ -42,9 +32,15 @@ export class SearchComponent implements OnInit {
   }
   saveLocation(recLocation) {
     let saveLoc = new location(
-      recLocation.description,
+      recLocation.name,
+      recLocation.address,
+      recLocation.phone,
+      recLocation.lat,
+      recLocation.lng,
       recLocation.place_id,
-      recLocation.types
+      recLocation.rating,
+      recLocation.types,
+      recLocation.website
     );
     let resLoc = this.placeIdSerivce
       .saveRecLocation(saveLoc)

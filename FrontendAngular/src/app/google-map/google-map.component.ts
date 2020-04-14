@@ -25,8 +25,8 @@ export class GoogleMapComponent implements OnInit {
     this.placeIdSerivce.getSavedLocations().subscribe(data => {
       for (const d of data as any) {
         this.savedLocations.push({
-          lat: d.geoCordinates[0].lat,
-          lng: d.geoCordinates[0].lng
+          lat: d.geoCordinates[0],
+          lng: d.geoCordinates[1]
         });
       }
     });

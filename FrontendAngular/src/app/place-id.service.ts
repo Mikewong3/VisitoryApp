@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { from, Observable } from "rxjs";
+import { from, Observable, Subject } from "rxjs";
 import { location } from "../models/locations";
-import { catchError, retry } from "rxjs/operators";
+import { catchError, retry, tap } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root"
@@ -10,16 +10,26 @@ import { catchError, retry } from "rxjs/operators";
 export class PlaceIdService {
   constructor(private http: HttpClient) {}
 
+  private _refreshNeeded = new Subject<void>();
+
   getPlaceIdURL = "http://localhost:3000/locations/";
   saveRecLocURL = "http://localhost:3000/saveLocation";
   savedLocURL = "http://localhost:3000/getLocations";
   recLocationURL = "http://localhost:3000/autocomplete/";
   getDetailsURL = "http://localhost:3000/getDetails/";
+
+  get refreshNeeded() {
+    return this._refreshNeeded;
+  }
   getPlaceId(location) {
     return this.http.get(this.getPlaceIdURL.concat(location));
   }
   saveRecLocation(location: location): Observable<location> {
-    return this.http.post<location>(this.saveRecLocURL, location);
+    return this.http.post<location>(this.saveRecLocURL, location).pipe(
+      tap(() => {
+        this._refreshNeeded.next();
+      })
+    );
   }
   getSavedLocations() {
     return this.http.get(this.savedLocURL);
@@ -29,7 +39,7 @@ export class PlaceIdService {
     let result: any = [];
     this.http.get(this.recLocationURL.concat(location)).subscribe(data => {
       for (const d of data as any) {
-        this.getPlaceDetails(d.place_id).subscribe(details => {
+        this.getPlaceDetails(d.place_id).subscribe((details: any) => {
           result.push({
             name: d.terms[0].value,
             address: details.formatted_address,

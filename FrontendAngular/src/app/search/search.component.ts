@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, EventEmitter, Input, Output } from "@angular/core";
 import { PlaceIdService } from "../place-id.service";
 import { location } from "../../models/locations";
 @Component({
@@ -11,7 +11,9 @@ export class SearchComponent implements OnInit {
   locationId: any = [];
   //Model of recLocations: {name,address,phone,lat,lng,place_id,rating,types,website}
   recLocations: any = [];
+  @Output() saved = new EventEmitter<boolean>();
   constructor(private placeIdSerivce: PlaceIdService) {}
+
   getPID(location) {
     this.placeIdSerivce.getPlaceId(location).subscribe(data => {
       for (const d of data as any) {
@@ -31,6 +33,7 @@ export class SearchComponent implements OnInit {
     console.log(location);
   }
   saveLocation(recLocation) {
+    this.saved.emit(true);
     let saveLoc = new location(
       recLocation.name,
       recLocation.address,

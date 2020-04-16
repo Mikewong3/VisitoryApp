@@ -33,6 +33,9 @@ export class GoogleMapComponent implements OnInit {
     console.log(this.savedLocations);
   }
   ngOnInit() {
+    this.placeIdSerivce.refreshNeeded.subscribe(() => {
+      this.getSavedLocation();
+    });
     this.getSavedLocation();
   }
 }

@@ -6,7 +6,8 @@
   [mapTypeId]="mapType"
   [zoom]="8"
 >
-  <agm-marker
+<!---
+   <agm-marker
     *ngFor="let loc of savedLocations"
     [latitude]="loc.lat"
     [longitude]="loc.lng"
@@ -16,5 +17,18 @@
       <h3>{{ loc.name }}</h3>
       <button (click)="deleteLocation(loc.locationId)">Delete</button>
     </agm-info-window>
-  </agm-marker>
+  </agm-marker> 
+  -->
+   <agm-marker
+    *ngFor="let loc of savedLocations | keyvalue"
+    [latitude]="loc.value.lat"
+    [longitude]="loc.value.lng"
+    [agmFitBounds]="true"
+  >
+    <agm-info-window>
+      <h3>{{ loc.value.name }}</h3>
+      <button (click)="deleteLocation(loc.key)">Delete</button>
+    </agm-info-window>
+  </agm-marker> 
 </agm-map>
+

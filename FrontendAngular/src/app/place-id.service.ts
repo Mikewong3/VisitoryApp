@@ -55,7 +55,6 @@ export class PlaceIdService {
         });
       }
     });
-    console.log(result);
 
     return result;
   }

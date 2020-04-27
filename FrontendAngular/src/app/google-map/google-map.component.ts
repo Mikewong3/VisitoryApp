@@ -12,19 +12,26 @@ export class GoogleMapComponent implements OnInit {
   defaultLatitude = 40.73061;
   defaultLongitude = -73.935242;
   mapType = "roadmap";
-  testData = [
-    { lat: 34.155834, lng: -119.202789 },
-    { lat: 31.442778, lng: -100.450279 },
-    { lat: 41, lng: -74 },
-  ];
-  savedLocations: any = [];
+
+  savedLocations = new Map();
+  // savedLocations: any = [];
   @ViewChild(AgmMap, { static: true }) map: AgmMap;
 
   constructor(private placeIdSerivce: PlaceIdService) {}
   getSavedLocation() {
     this.placeIdSerivce.getSavedLocations().subscribe((data) => {
       for (const d of data as any) {
-        this.savedLocations.push({
+        // this.savedLocations.push({
+        //   lat: d.geoCordinates[0],
+        //   lng: d.geoCordinates[1],
+        //   rating: d.rating,
+        //   name: d.name,
+        //   website: d.website,
+        //   address: d.address,
+        //   phone: d.phone,
+        //   locationId: d.locationId,
+        // });
+        let tempData = {
           lat: d.geoCordinates[0],
           lng: d.geoCordinates[1],
           rating: d.rating,
@@ -32,16 +39,15 @@ export class GoogleMapComponent implements OnInit {
           website: d.website,
           address: d.address,
           phone: d.phone,
-          locationId: d.locationId,
-        });
+        };
+        this.savedLocations.set(d.locationId, tempData);
       }
     });
     console.log(this.savedLocations);
   }
   deleteLocation(id) {
     this.placeIdSerivce.deleteLocation(id).subscribe((data) => {
-      console.log(data);
-      window.location.reload();
+      this.savedLocations.delete(id);
     });
   }
   ngOnInit() {

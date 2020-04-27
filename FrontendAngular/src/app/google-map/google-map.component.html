@@ -6,20 +6,15 @@
   [mapTypeId]="mapType"
   [zoom]="8"
 >
-  <!-- <agm-marker
-    *ngFor="let test of testData"
-    [(latitude)]="test.lat"
-    [(longitude)]="test.lng"
-    [agmFitBounds]="true"
-  >
-  </agm-marker> -->
   <agm-marker
     *ngFor="let loc of savedLocations"
     [latitude]="loc.lat"
     [longitude]="loc.lng"
     [agmFitBounds]="true"
   >
-    <agm-info-window>Hi this is content</agm-info-window>
-    <app-search></app-search>
+    <agm-info-window>
+      <h3>{{ loc.name }}</h3>
+      <button (click)="deleteLocation(loc.locationId)">Delete</button>
+    </agm-info-window>
   </agm-marker>
 </agm-map>

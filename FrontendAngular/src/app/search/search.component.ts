@@ -4,7 +4,7 @@ import { location } from "../../models/locations";
 @Component({
   selector: "app-search",
   templateUrl: "./search.component.html",
-  styleUrls: ["./search.component.css"]
+  styleUrls: ["./search.component.css"],
 })
 export class SearchComponent implements OnInit {
   location: String;
@@ -15,22 +15,20 @@ export class SearchComponent implements OnInit {
   constructor(private placeIdSerivce: PlaceIdService) {}
 
   getPID(location) {
-    this.placeIdSerivce.getPlaceId(location).subscribe(data => {
+    this.placeIdSerivce.getPlaceId(location).subscribe((data) => {
       for (const d of data as any) {
         this.locationId.push({
-          place_id: d.place_id
+          place_id: d.place_id,
         });
       }
       console.log(this.locationId);
     });
   }
-
+  testDetails(location) {
+    console.log(this.placeIdSerivce.getPlaceDetails(location));
+  }
   getRecPlaces(location) {
     this.recLocations = this.placeIdSerivce.getRec(location);
-  }
-  testClick(location) {
-    console.log("Click works");
-    console.log(location);
   }
   saveLocation(recLocation) {
     this.saved.emit(true);
@@ -43,11 +41,12 @@ export class SearchComponent implements OnInit {
       recLocation.place_id,
       recLocation.rating,
       recLocation.types,
-      recLocation.website
+      recLocation.website,
+      false
     );
     let resLoc = this.placeIdSerivce
       .saveRecLocation(saveLoc)
-      .subscribe(data => {
+      .subscribe((data) => {
         console.log(data);
       });
   }

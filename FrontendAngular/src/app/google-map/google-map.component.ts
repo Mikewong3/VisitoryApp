@@ -2,6 +2,10 @@ import { Component, Input, ViewChild, NgZone, OnInit } from "@angular/core";
 import { MapsAPILoader, AgmMap } from "@agm/core";
 import { GoogleMapsAPIWrapper } from "@agm/core/services";
 import { PlaceIdService } from "../place-id.service";
+import { MatTableDataSource, MatSort, MatTable } from "@angular/material";
+/* TODO 
+  -toggleVisited(loc.id) method 
+*/
 
 @Component({
   selector: "app-google-map",
@@ -12,44 +16,28 @@ export class GoogleMapComponent implements OnInit {
   defaultLatitude = 40.73061;
   defaultLongitude = -73.935242;
   mapType = "roadmap";
-
-  savedLocations = new Map();
-  // savedLocations: any = [];
+  savedLocations: any = [];
+  // savedLocations = new Map();
   @ViewChild(AgmMap, { static: true }) map: AgmMap;
+  @ViewChild(MatTable, { static: true }) table: MatTable<any>;
 
   constructor(private placeIdSerivce: PlaceIdService) {}
   getSavedLocation() {
     this.placeIdSerivce.getSavedLocations().subscribe((data) => {
-      for (const d of data as any) {
-        // this.savedLocations.push({
-        //   lat: d.geoCordinates[0],
-        //   lng: d.geoCordinates[1],
-        //   rating: d.rating,
-        //   name: d.name,
-        //   website: d.website,
-        //   address: d.address,
-        //   phone: d.phone,
-        //   locationId: d.locationId,
-        // });
-        let tempData = {
-          lat: d.geoCordinates[0],
-          lng: d.geoCordinates[1],
-          rating: d.rating,
-          name: d.name,
-          website: d.website,
-          address: d.address,
-          phone: d.phone,
-        };
-        this.savedLocations.set(d.locationId, tempData);
-      }
+      this.savedLocations = data;
+      console.log("--Get");
+      console.log(this.savedLocations);
     });
+  }
+  deleteLocation(id, index) {
+    this.placeIdSerivce.deleteLocation(id).subscribe((data) => {
+      this.savedLocations.splice(index, 1);
+      this.table.renderRows();
+    });
+    console.log("--Deleted");
     console.log(this.savedLocations);
   }
-  deleteLocation(id) {
-    this.placeIdSerivce.deleteLocation(id).subscribe((data) => {
-      this.savedLocations.delete(id);
-    });
-  }
+
   ngOnInit() {
     this.placeIdSerivce.refreshNeeded.subscribe(() => {
       this.getSavedLocation();

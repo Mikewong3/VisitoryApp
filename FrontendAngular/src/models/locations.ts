@@ -9,6 +9,7 @@ export class location {
   website: String;
   lat: Number;
   lng: Number;
+  visited: Boolean;
   constructor(
     name: String,
     addr: String,
@@ -18,7 +19,8 @@ export class location {
     locationId: String,
     rating: Number,
     types: String[],
-    website: String
+    website: String,
+    visited: Boolean
   ) {
     this.name = name;
     this.address = addr;
@@ -29,5 +31,6 @@ export class location {
     this.rating = rating;
     this.website = website;
     this.types = Object.assign([], types);
+    this.visited = visited;
   }
 }

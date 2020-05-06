@@ -32,6 +32,7 @@ export class PlaceIdService {
       })
     );
   }
+
   getSavedLocations() {
     return this.http.get(this.savedLocURL);
   }
@@ -55,17 +56,12 @@ export class PlaceIdService {
         });
       }
     });
-
     return result;
   }
   getPlaceDetails(locationId) {
     return this.http.get(this.getDetailsURL.concat(locationId));
   }
   deleteLocation(locationId) {
-    return this.http.delete(this.deleteLocationsURL.concat(locationId)).pipe(
-      tap(() => {
-        this._refreshNeeded.next();
-      })
-    );
+    return this.http.delete(this.deleteLocationsURL.concat(locationId));
   }
 }

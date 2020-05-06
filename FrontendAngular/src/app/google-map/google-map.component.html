@@ -6,20 +6,7 @@
   [mapTypeId]="mapType"
   [zoom]="8"
 >
-<!---
-   <agm-marker
-    *ngFor="let loc of savedLocations"
-    [latitude]="loc.lat"
-    [longitude]="loc.lng"
-    [agmFitBounds]="true"
-  >
-    <agm-info-window>
-      <h3>{{ loc.name }}</h3>
-      <button (click)="deleteLocation(loc.locationId)">Delete</button>
-    </agm-info-window>
-  </agm-marker> 
-  -->
-   <agm-marker
+   <!--<agm-marker
     *ngFor="let loc of savedLocations | keyvalue"
     [latitude]="loc.value.lat"
     [longitude]="loc.value.lng"
@@ -29,6 +16,48 @@
       <h3>{{ loc.value.name }}</h3>
       <button (click)="deleteLocation(loc.key)">Delete</button>
     </agm-info-window>
+  </agm-marker> -->
+   <agm-marker
+    *ngFor="let loc of savedLocations; let i = index"
+    [latitude]="loc.geoCordinates[0]"
+    [longitude]="loc.geoCordinates[1]"
+    [agmFitBounds]="true"
+  >
+    <agm-info-window>
+      <h3>{{ loc.name }}</h3>
+      <div>
+         <mat-slide-toggle
+          [color]="color"
+          [checked]= "loc.visited"
+          [disabled]="disabled"
+          labelPosition="before"
+          (change)="toggleVisited(loc.id)">
+        Visited
+      </mat-slide-toggle>
+      </div>
+      <button mat-raised-button color="warn"(click)="deleteLocation(loc.locationId,i)">Delete</button>
+    </agm-info-window>
   </agm-marker> 
 </agm-map>
 
+
+<table mat-table [dataSource]="savedLocations" striped="true">
+ <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+  <ng-container matColumnDef="visited">
+    <th mat-header-cell *matHeaderCellDef> Visited </th>
+    <td mat-cell *matCellDef="let element"> {{element.visited}} </td>
+  </ng-container>
+  <ng-container matColumnDef="address">
+    <th mat-header-cell *matHeaderCellDef> Address </th>
+    <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+  </ng-container>
+  <ng-container matColumnDef="phone">
+    <th mat-header-cell *matHeaderCellDef> Phone </th>
+    <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="['name','address','phone','visited']"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['name','address','phone','visited'];"></tr>
+</table>

@@ -18,7 +18,7 @@ export class PlaceIdService {
   recLocationURL = "http://localhost:3000/autocomplete/";
   getDetailsURL = "http://localhost:3000/getDetails/";
   deleteLocationsURL = "http://localhost:3000/deleteLocation/";
-
+  updateVisitedStatusURL = "http://localhost:3000/visited/";
   get refreshNeeded() {
     return this._refreshNeeded;
   }
@@ -60,6 +60,10 @@ export class PlaceIdService {
   }
   getPlaceDetails(locationId) {
     return this.http.get(this.getDetailsURL.concat(locationId));
+  }
+  changedVisitedStatus(locationId, visitedStatus) {
+    let data = { status: visitedStatus };
+    return this.http.put(this.updateVisitedStatusURL.concat(locationId), data);
   }
   deleteLocation(locationId) {
     return this.http.delete(this.deleteLocationsURL.concat(locationId));

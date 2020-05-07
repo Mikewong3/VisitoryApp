@@ -37,7 +37,13 @@ export class GoogleMapComponent implements OnInit {
     console.log("--Deleted");
     console.log(this.savedLocations);
   }
-
+  toggleVisited(locationId, visitedStatus) {
+    this.placeIdSerivce
+      .changedVisitedStatus(locationId, visitedStatus)
+      .subscribe((data) => {
+        console.log("--toggleVisited Button Clicked--");
+      });
+  }
   ngOnInit() {
     this.placeIdSerivce.refreshNeeded.subscribe(() => {
       this.getSavedLocation();

@@ -1,3 +1,4 @@
+<div class = "googleMap">
 <agm-map
   [latitude]="defaultLatitude"
   [longitude]="defaultLongitude"
@@ -6,17 +7,6 @@
   [mapTypeId]="mapType"
   [zoom]="8"
 >
-   <!--<agm-marker
-    *ngFor="let loc of savedLocations | keyvalue"
-    [latitude]="loc.value.lat"
-    [longitude]="loc.value.lng"
-    [agmFitBounds]="true"
-  >
-    <agm-info-window>
-      <h3>{{ loc.value.name }}</h3>
-      <button (click)="deleteLocation(loc.key)">Delete</button>
-    </agm-info-window>
-  </agm-marker> -->
    <agm-marker
     *ngFor="let loc of savedLocations; let i = index"
     [latitude]="loc.geoCordinates[0]"
@@ -31,7 +21,7 @@
           [checked]= "loc.visited"
           [disabled]="disabled"
           labelPosition="before"
-          (change)="toggleVisited(loc.locationId,loc.visited)">
+          (change)="toggleVisited(loc.locationId,loc.visited,i)">
         Visited
       </mat-slide-toggle>
       </div>
@@ -39,7 +29,7 @@
     </agm-info-window>
   </agm-marker> 
 </agm-map>
-
+</div>
 
 <table mat-table [dataSource]="savedLocations" striped="true">
  <ng-container matColumnDef="name">
@@ -61,3 +51,5 @@
   <tr mat-header-row *matHeaderRowDef="['name','address','phone','visited']"></tr>
   <tr mat-row *matRowDef="let row; columns: ['name','address','phone','visited'];"></tr>
 </table>
+
+

@@ -10,7 +10,8 @@ import { MatTableDataSource, MatSort, MatTable } from "@angular/material";
 @Component({
   selector: "app-google-map",
   templateUrl: "./google-map.component.html",
-  styles: ["agm-map { height: 300px; /* height is required */ }"],
+  styles: ["agm-map { height: 400px; /* height is required */ }"],
+  styleUrls: ["./google-map.component.css"],
 })
 export class GoogleMapComponent implements OnInit {
   defaultLatitude = 40.73061;
@@ -37,11 +38,11 @@ export class GoogleMapComponent implements OnInit {
     console.log("--Deleted");
     console.log(this.savedLocations);
   }
-  toggleVisited(locationId, visitedStatus) {
+  toggleVisited(locationId, visitedStatus, index) {
     this.placeIdSerivce
       .changedVisitedStatus(locationId, visitedStatus)
       .subscribe((data) => {
-        console.log("--toggleVisited Button Clicked--");
+        window.location.reload();
       });
   }
   ngOnInit() {

@@ -1,15 +1,13 @@
-<div>
-  <label>
-    Place:
-    <input [(ngModel)]="location" placeholder="name" id="searchBar" />
-    <button (click)="getRecPlaces(location)">Search</button>
-  </label>
-</div>
-
-<ul>
-  <li *ngFor="let rec of recLocations">
-    {{ rec.name }} "///" {{ rec.address }}
-    <button (click)="saveLocation(rec)">Save</button>
-  </li>
-</ul>
-
+<mat-form-field class="example-form-field">
+    <mat-label>Enter Location</mat-label>
+    <input matInput type="text" [(ngModel)]="location">
+    <button mat-button *ngIf="location" matSuffix mat-icon-button aria-label="Clear" (click)="location=''">
+      <mat-icon>close</mat-icon>
+    </button>
+</mat-form-field>
+  <button mat-button color="primary" (click)="getRecPlaces(location)">Primary</button>
+<mat-list role="list" *ngFor = "let rec of recLocations">
+  <mat-list-item role="listitem"> {{rec.name}}({{rec.address}})
+      <button mat-raised-button (click)="saveLocation(rec)" class="recLocationsBtn">Save</button>
+  </mat-list-item>
+</mat-list>

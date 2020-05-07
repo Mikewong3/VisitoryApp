@@ -15,10 +15,16 @@ import { MatSliderModule } from "@angular/material/slider";
 import { CdkTableModule } from "@angular/cdk/table";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { MatButtonModule } from "@angular/material/button";
+import { MatInputModule } from "@angular/material/input";
+import { MatIconModule } from "@angular/material/icon";
+import { MatListModule } from "@angular/material/list";
 
 @NgModule({
   declarations: [AppComponent, SearchComponent, GoogleMapComponent],
   imports: [
+    MatListModule,
+    MatIconModule,
+    MatInputModule,
     MatButtonModule,
     MatSlideToggleModule,
     CdkTableModule,

@@ -5,7 +5,7 @@
       <mat-icon>close</mat-icon>
     </button>
 </mat-form-field>
-  <button mat-button color="primary" (click)="getRecPlaces(location)">Primary</button>
+<button mat-button color="primary" (click)="getRecPlaces(location)">Search</button>
 <mat-list role="list" *ngFor = "let rec of recLocations">
   <mat-list-item role="listitem"> {{rec.name}}({{rec.address}})
       <button mat-raised-button (click)="saveLocation(rec)" class="recLocationsBtn">Save</button>

@@ -12,13 +12,14 @@ export class PlaceIdService {
 
   private _refreshNeeded = new Subject<any>();
 
-  getPlaceIdURL = "http://localhost:3000/locations/";
-  saveRecLocURL = "http://localhost:3000/saveLocation";
-  savedLocURL = "http://localhost:3000/getLocations";
-  recLocationURL = "http://localhost:3000/autocomplete/";
-  getDetailsURL = "http://localhost:3000/getDetails/";
-  deleteLocationsURL = "http://localhost:3000/deleteLocation/";
-  updateVisitedStatusURL = "http://localhost:3000/visited/";
+  getPlaceIdURL = "https://visitorapp-backend.herokuapp.com/locations/";
+  saveRecLocURL = "https://visitorapp-backend.herokuapp.com/saveLocation";
+  savedLocURL = "https://visitorapp-backend.herokuapp.com/getLocations";
+  recLocationURL = "https://visitorapp-backend.herokuapp.com/autocomplete/";
+  getDetailsURL = "https://visitorapp-backend.herokuapp.com/getDetails/";
+  deleteLocationsURL =
+    "https://visitorapp-backend.herokuapp.com/deleteLocation/";
+  updateVisitedStatusURL = "https://visitorapp-backend.herokuapp.com/visited/";
   get refreshNeeded() {
     return this._refreshNeeded;
   }

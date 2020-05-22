@@ -17,9 +17,7 @@
       <h3>{{ loc.name }}</h3>
       <div>
          <mat-slide-toggle
-          [color]="color"
           [checked]= "loc.visited"
-          [disabled]="disabled"
           labelPosition="before"
           (change)="toggleVisited(loc.locationId,loc.visited,i)">
         Visited

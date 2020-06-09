@@ -1,0 +1,10 @@
+<p>login works!</p>
+<div class="log-form">
+  <h2>Login to your account</h2>
+  <form>
+    <input  [(ngModel)]="userEmail" name="email" />
+    <input [(ngModel)]="userPassword" name="password"/>
+    <button type="submit" (click)="login()">Login</button>
+  </form>
+</div><!--end log form -->
+

@@ -1,5 +1,5 @@
 import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
+import { NgModule, Component } from "@angular/core";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -18,9 +18,18 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from "@angular/material/icon";
 import { MatListModule } from "@angular/material/list";
+import { LoginComponent } from "./login/login.component";
+import { RouterModule, Routes } from "@angular/router";
+import { RootComponent } from './root/root.component';
 
 @NgModule({
-  declarations: [AppComponent, SearchComponent, GoogleMapComponent],
+  declarations: [
+    AppComponent,
+    SearchComponent,
+    GoogleMapComponent,
+    LoginComponent,
+    RootComponent,
+  ],
   imports: [
     MatListModule,
     MatIconModule,

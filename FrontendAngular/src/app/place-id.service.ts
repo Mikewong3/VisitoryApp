@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { from, Observable, Subject } from "rxjs";
 import { location } from "../models/locations";
 import { catchError, retry, tap } from "rxjs/operators";
-
+import { UserData } from "../models/User";
 @Injectable({
   providedIn: "root",
 })
@@ -14,12 +14,14 @@ export class PlaceIdService {
 
   getPlaceIdURL = "https://visitorapp-backend.herokuapp.com/locations/";
   saveRecLocURL = "https://visitorapp-backend.herokuapp.com/saveLocation";
-  savedLocURL = "https://visitorapp-backend.herokuapp.com/getLocations";
+  // savedLocURL = "https://visitorapp-backend.herokuapp.com/getLocations";
+  savedLocURL = "http://localhost:3000/getLocations";
   recLocationURL = "https://visitorapp-backend.herokuapp.com/autocomplete/";
   getDetailsURL = "https://visitorapp-backend.herokuapp.com/getDetails/";
   deleteLocationsURL =
     "https://visitorapp-backend.herokuapp.com/deleteLocation/";
   updateVisitedStatusURL = "https://visitorapp-backend.herokuapp.com/visited/";
+  registerUserURL = "http://localhost:3000/register";
   get refreshNeeded() {
     return this._refreshNeeded;
   }
@@ -35,6 +37,7 @@ export class PlaceIdService {
   }
 
   getSavedLocations() {
+    let user = localStorage.getItem("userInfo");
     return this.http.get(this.savedLocURL);
   }
   //Ignore the error for the details.attr / it gives the info correctly
@@ -68,5 +71,12 @@ export class PlaceIdService {
   }
   deleteLocation(locationId) {
     return this.http.delete(this.deleteLocationsURL.concat(locationId));
+  }
+  saveUser(user: UserData) {
+    return this.http
+      .post<UserData>(this.registerUserURL, user)
+      .subscribe((data) => {
+        console.log("Successful Registeration");
+      });
   }
 }

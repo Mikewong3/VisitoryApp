@@ -20,7 +20,10 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatListModule } from "@angular/material/list";
 import { LoginComponent } from "./login/login.component";
 import { RouterModule, Routes } from "@angular/router";
-import { RootComponent } from './root/root.component';
+import { RootComponent } from "./root/root.component";
+import { RegisterComponent } from "./register/register.component";
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [
@@ -29,9 +32,11 @@ import { RootComponent } from './root/root.component';
     GoogleMapComponent,
     LoginComponent,
     RootComponent,
+    RegisterComponent,
   ],
   imports: [
     MatListModule,
+    MatSnackBarModule,
     MatIconModule,
     MatInputModule,
     MatButtonModule,
@@ -47,6 +52,7 @@ import { RootComponent } from './root/root.component';
       apiKey: "AIzaSyDB0vvrNozsGFZD6lD97DTD3oKhtHTZRxk",
     }),
     BrowserAnimationsModule,
+    MatDialogModule,
   ],
   providers: [GoogleMapsAPIWrapper],
   bootstrap: [AppComponent],

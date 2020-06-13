@@ -17,5 +17,6 @@ export class RootComponent implements OnInit {
     this.authService.logoutSession();
     this.router.navigate(["login"]);
   }
+
   ngOnInit() {}
 }

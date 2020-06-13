@@ -6,9 +6,11 @@ import { SearchComponent } from "./search/search.component";
 import { GoogleMapComponent } from "./google-map/google-map.component";
 import { AuthGuardService as AuthGuard } from "./auth-guard.service";
 import { RootComponent } from "./root/root.component";
+import { RegisterComponent } from "./register/register.component";
 const routes: Routes = [
   { path: "login", component: LoginComponent },
   { path: "home", component: RootComponent, canActivate: [AuthGuard] },
+  { path: "register", component: RegisterComponent },
   { path: "", redirectTo: "/home", pathMatch: "full" },
   { path: "**", component: LoginComponent },
 ];
